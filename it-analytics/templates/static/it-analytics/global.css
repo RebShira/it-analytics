@@ -1,1 +1,25 @@
+body {
+    background-color: #FEF5BE;
+    font-family: 'Cabin', sans-serif;
+}
 
+.imag1 {
+    display: inline-block;
+    margin-left: 10%;
+    height: 200px;
+    width: 200px;
+}
+
+.imag2 {
+    display: inline-block;
+    margin-left: 15%;
+    height: 150px;
+    width: 600px;
+}
+
+.imag3 {
+    display: inline-block;
+    margin-left: 10%;
+    height: 200px;
+    width: 200px;
+}
