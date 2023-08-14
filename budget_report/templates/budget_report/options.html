@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends 'base.html'  %}
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Select AMP/Dept</title>
+</head>
+{% block content %}
+<link rel = "stylesheet" href="{% static 'budget_report/style1.css' %}"/>
+<body>
+    <div class="header2">
+        <h1>Budget vs Actual {{ year }}</h1>
+        <h3>Select Report AMP/Dept</h3>
+        <form  method="post">
+            <label for="amps">Select AMP/Dept: </label>
+            <select list="ampselect" id="amps">
+            <datalist id="ampselect">
+                {% for option in options %}
+                <option value="{{ option.AMP }}">{{option.subdomain}}&nbsp|&nbsp{{option.AMP}}&nbsp|&nbsp{{option.site_name}}</option>
+                {% endfor %}
+            </datalist>
+            </select>
+            <hr>
+            {% csrf_token %}
+            <button type="submit">View Report</button>
+        </form>
+    </div>
+
+</body>
+{% endblock %}
+</html>
