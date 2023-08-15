@@ -45,6 +45,8 @@ def detail(request, curramp, has_options='NONE'):
         return render(request, 'budget_report/index.html', context)
 
     else:
+        budgetlines_no_format = data_interactions.return_dataset(ID=16, Format='JSON', Data=True, Amp=curramp)
+        context["budgetlines"] = budgetlines_no_format
         doctype = request.POST.getlist("doctype")
         if "excel" in doctype:
             response = HttpResponse(content_type="application/vnd.ms-excel")
@@ -129,7 +131,8 @@ def detail_to_excel(context):
         {
             'font_size': 10,
             'font_name': 'Courier New',
-            'num_format': '0.00%',
+            # 'num_format': '0.00%',
+            'num_format': '_(0.00%_);_((0.00%);_("-"??_);_(@_)',
             'align': 'center',
             'border': 1
         }
