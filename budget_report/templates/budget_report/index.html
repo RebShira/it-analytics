@@ -4,7 +4,7 @@
 {% extends 'base.html'  %}
 
 {% load static %}
-    
+
 <head>
     <meta charset="UTF-8">
     <title>{{ ampdept }}</title>
@@ -14,74 +14,79 @@
 
 <link rel = "stylesheet" href="{% static 'budget_report/style1.css' %}">
 <body>
-<div class="container">
-<div class="header">
-<h1>Budget vs Actual {{ year }}</h1>
-<h3>{{ ampdept }}</h3>
-MANAGER: &nbsp&nbsp{{ mgrname }}<br>
-DIRECTOR: &nbsp{{ dirname }}<br>
-CHIEF: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ chiefname }}<p>
-<em>Data As Of:  {{ etl }}</em>
-</div>
-<img class="img1" src="{% static image %}"/>
+    <div class="container">
+        <div class="header">
+            <h1>Budget vs Actual {{ year }}</h1>
+            <h3>{{ ampdept }}</h3>
+            MANAGER: &nbsp&nbsp{{ mgrname }}<br>
+            DIRECTOR: &nbsp{{ dirname }}<br>
+            CHIEF: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ chiefname }}<p>
+            <em>Data As Of:  {{ etl }}</em>
+        </div>
 
-<div class="legend">
-    <h4>LEGEND :</h4>
-    MTD - MONTH TO DATE<br>
-    YTD - YEAR TO DATE
-</div>
+        <img class="img1" src="{% static image %}"/>
 
-<div>
-<form method="POST" id="form-display">
-    {% csrf_token %}
-    <input type="hidden" name="doctype" value="excel"/>
-    <button onclick="{% url 'detail' curramp=amp %}">
-    <img id="imgxl" src="{% static 'budget_report/XL.jpg' %}"/>
-    </button>
-</form>
-</div>
+        <div class="legend">
+            <h4>LEGEND :</h4>
+            MTD - MONTH TO DATE<br>
+            YTD - YEAR TO DATE
 
-</div>
+            <form method="POST" id="form-display">
+                {% csrf_token %}
+                <input type="hidden" name="doctype" value="excel"/>
+                <button onclick="{% url 'detail' curramp=amp %}">
+                <img id="imgxl" src="{% static 'budget_report/XL.jpg' %}"/>
+                </button>
+            </form>
 
-<br>
-<div>
-<table id="mytable">
-    <tr>
-        <th class="dvsn">ACCOUNT CODE</th>
-        <th>ACCOUNT DESCRIPTION</th>
-        <th>{{ year }} ANNUAL BUDGET</th>
-        <th>MTD BUDGET</th>
-        <th>MTD ACTUAL</th>
-        <th>MTD VARIANCE</th>
-        <th class="division">YTD BUDGET</th>
-        <th>YTD ACTUAL</th>
-        <th>YTD VARIANCE</th>
-        <th>AVAILABLE</th>
-        <th class="end">PERCENT EXPENDED</th>
-    </tr>
+        </div>
 
-    {% for line in budgetlines %}
-    <tr>
-        <td class="dvsn">{{ line.ACCT }}</td>
-        <td>{{ line.DESCRIPT }}</td>
-        <td class="dvsn ctr end">{{ line.TOTBUDAMT }}</td>
-        <td class="ctr">{{ line.MBUDAMT }}</td>
-        <td class="ctr">{{ line.MAMTA }}</td>
-        <td class="ctr">{{ line.MVARIANCE }}</td>
-        <td class="dvsn ctr">{{ line.YBUDAMT }}</td>
-        <td class="ctr">{{ line.YAMTA }}</td>
-        <td class="ctr">{{ line.YVARIANCE }}</td>
-        <td class="ctr">{{ line.AVAILABLE }}</td>
-        <td class="ctr end">{{ line.PEREXP }}</td>
-    </tr>
-    {% endfor %}
+        <div>
 
-</table>
-</div>
-<script src="{% static 'budget_report/negatives.js' %}"></script>
+        </div>
 
-<p>
-<h3>*** Account not budgeted for.</h3>
+    </div>
+
+    <br>
+    <div>
+
+    <table id="mytable">
+        <tr>
+            <th class="dvsn">ACCOUNT CODE</th>
+            <th>ACCOUNT DESCRIPTION</th>
+            <th>{{ year }} ANNUAL BUDGET</th>
+            <th>MTD BUDGET</th>
+            <th>MTD ACTUAL</th>
+            <th>MTD VARIANCE</th>
+            <th class="division">YTD BUDGET</th>
+            <th>YTD ACTUAL</th>
+            <th>YTD VARIANCE</th>
+            <th>AVAILABLE</th>
+            <th class="end">PERCENT EXPENDED</th>
+        </tr>
+
+        {% for line in budgetlines %}
+        <tr>
+            <td class="dvsn">{{ line.ACCT }}</td>
+            <td>{{ line.DESCRIPT }}</td>
+            <td class="dvsn ctr end">{{ line.TOTBUDAMT }}</td>
+            <td class="ctr">{{ line.MBUDAMT }}</td>
+            <td class="ctr">{{ line.MAMTA }}</td>
+            <td class="ctr">{{ line.MVARIANCE }}</td>
+            <td class="dvsn ctr">{{ line.YBUDAMT }}</td>
+            <td class="ctr">{{ line.YAMTA }}</td>
+            <td class="ctr">{{ line.YVARIANCE }}</td>
+            <td class="ctr">{{ line.AVAILABLE }}</td>
+            <td class="ctr end">{{ line.PEREXP }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    </div>
+    <script src="{% static 'budget_report/negatives.js' %}"></script>
+
+    <p>
+    <h3>*** Account not budgeted for.</h3>
 
 </body>
 
