@@ -194,8 +194,12 @@ def return_dataset(**kwargs):
         return __create_json(sql)
 
 
-def update_data():
-    pass
+def crud(sql):
+    engine = sa.create_engine(
+        'mssql+pyodbc://' + server + '/' + database +
+        '?trusted_connection=yes&driver=ODBC+Driver+17+for+SQL+Server')
+    with engine.begin() as conn:
+        conn.execute(text(sql))
 
 
 def __create_json(dframe):
